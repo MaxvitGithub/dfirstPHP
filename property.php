@@ -599,31 +599,18 @@ switch($pa_code){
 
 }
 
+$count_query = mysqli_query($con, "SELECT COUNT(*) AS total FROM post_property WHERE amphur_name = '$pa_code' AND type_property_code='$property_code' AND type_category_code='$category_code'");
+$count_result = mysqli_fetch_assoc($count_query);
+$total_one = (int)$count_result['total'];
 
-
-
-
-$query_data_post = mysqli_query($con, "SELECT * FROM post_property WHERE amphur_name = '$pa_code' AND type_property_code='$property_code' AND type_category_code='$category_code' ORDER BY hot_sale DESC, date DESC, time DESC Limit $start, $perpage");
-
+$query_data_post = mysqli_query($con, "SELECT * FROM post_property WHERE amphur_name = '$pa_code' AND type_property_code='$property_code' AND type_category_code='$category_code' ORDER BY hot_sale DESC, date DESC, time DESC LIMIT $start, $perpage");
 $row_data_post = mysqli_fetch_array($query_data_post, MYSQLI_ASSOC);
-
 $totalRows_data_post = mysqli_num_rows($query_data_post);
-
-
-
-$query_one = mysqli_query($con, "SELECT * FROM post_property WHERE amphur_name = '$pa_code' AND type_property_code='$property_code' AND type_category_code='$category_code' ORDER BY hot_sale DESC, date DESC, time DESC");
-
-$total_one = mysqli_num_rows($query_one);
+$row_data_post_2 = $row_data_post;
 
 
 
 
-
-$query_data_post_2 = mysqli_query($con, "SELECT * FROM post_property WHERE amphur_name = '$pa_code' AND type_property_code='$property_code' AND type_category_code='$category_code'");
-
-$row_data_post_2 = mysqli_fetch_array($query_data_post_2, MYSQLI_ASSOC);
-
-$totalRows_data_post_2 = mysqli_num_rows($query_data_post_2);
 
 
 
@@ -632,6 +619,9 @@ if(empty($row_data_post['amphur_name']))
 {
 
 
+$count_query = mysqli_query($con, "SELECT COUNT(*) AS total FROM post_property WHERE province_name = '$pa_code' AND type_property_code='$property_code' AND type_category_code='$category_code'");
+$count_result = mysqli_fetch_assoc($count_query);
+$total_one = (int)$count_result['total'];
 
 $query_data_post = mysqli_query($con, "SELECT * FROM post_property WHERE province_name = '$pa_code' AND type_property_code='$property_code' AND type_category_code='$category_code' ORDER BY hot_sale DESC, date DESC, time DESC Limit $start, $perpage");
 
@@ -639,11 +629,9 @@ $row_data_post = mysqli_fetch_array($query_data_post, MYSQLI_ASSOC);
 
 $totalRows_data_post = mysqli_num_rows($query_data_post);
 
+$row_data_post_2 = $row_data_post;
 
 
-$query_one = mysqli_query($con, "SELECT * FROM post_property WHERE province_name = '$pa_code' AND type_property_code='$property_code' AND type_category_code='$category_code' ORDER BY hot_sale DESC, date DESC, time DESC");
-
-$total_one = mysqli_num_rows($query_one);
 
 }
 
@@ -652,6 +640,9 @@ $total_one = mysqli_num_rows($query_one);
 if(empty($row_data_post['province_name'])){
 
 
+$count_query = mysqli_query($con, "SELECT COUNT(*) AS total FROM post_property WHERE title LIKE '%$pa_code%' AND type_property_code='$property_code' AND type_category_code='$category_code'");
+$count_result = mysqli_fetch_assoc($count_query);
+$total_one = (int)$count_result['total'];
 
 $query_data_post = mysqli_query($con, "SELECT * FROM post_property WHERE title LIKE '%$pa_code%' AND type_property_code='$property_code' AND type_category_code='$category_code' ORDER BY hot_sale DESC, date DESC, time DESC Limit $start, $perpage");
 
@@ -659,11 +650,9 @@ $row_data_post = mysqli_fetch_array($query_data_post , MYSQLI_ASSOC);
 
 $totalRows_data_post = mysqli_num_rows($query_data_post);
 
+$row_data_post_2 = $row_data_post;
 
 
-$query_one = mysqli_query($con, "SELECT * FROM post_property WHERE title LIKE '%$pa_code%' AND type_property_code='$property_code' AND type_category_code='$category_code' ORDER BY hot_sale DESC, date DESC, time DESC");
-
-$total_one = mysqli_num_rows($query_one);
 
 
 
@@ -681,6 +670,9 @@ $property_code;
 $category_code;
 
 
+$count_query = mysqli_query($con, "SELECT COUNT(*) AS total FROM post_property WHERE type_property_code='$property_code' AND type_category_code='$category_code'");
+$count_result = mysqli_fetch_assoc($count_query);
+$total_one = (int)$count_result['total'];
 
 $query_data_post = mysqli_query($con, "SELECT * FROM post_property WHERE type_property_code='$property_code' AND type_category_code='$category_code' ORDER BY hot_sale DESC, date DESC, time DESC Limit $start, $perpage");
 
@@ -688,11 +680,9 @@ $row_data_post = mysqli_fetch_array($query_data_post , MYSQLI_ASSOC);
 
 $totalRows_data_post = mysqli_num_rows($query_data_post);
 
+$row_data_post_2 = $row_data_post;
 
 
-$query_one = mysqli_query($con, "SELECT * FROM post_property WHERE type_property_code='$property_code' AND type_category_code='$category_code' ORDER BY hot_sale DESC, date DESC, time DESC");
-
-$total_one = mysqli_num_rows($query_one);
 
 
 
@@ -776,7 +766,7 @@ if(!empty($pa_code)){$pa_code=$pa_code;}else{$pa_code='';};
 
 
 
-$query_title = mysqli_query($con, "SELECT * FROM post_property WHERE amphur_name='$pa_code' ");
+$query_title = mysqli_query($con, "SELECT * FROM post_property WHERE amphur_name='$pa_code' LIMIT 1");
 
 $row_title = mysqli_fetch_array($query_title , MYSQLI_ASSOC);
 
