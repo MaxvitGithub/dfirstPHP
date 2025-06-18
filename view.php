@@ -1,13 +1,11 @@
 <?php
-include_once('db/con_site_bar.php');
 // Enable gzip compression if possible for faster loading
-if (!headers_sent()) {
-    if (extension_loaded('zlib')) {
-        ob_start('ob_gzhandler');
-    } else {
-        ob_start();
-    }
+if (extension_loaded('zlib')) {
+    ob_start('ob_gzhandler');
+} else {
+    ob_start();
 }
+include_once('db/con_site_bar.php');
 
 $code_property = '';
 
