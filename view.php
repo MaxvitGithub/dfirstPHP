@@ -251,6 +251,11 @@ $seo_a=trim($row_data_post['amphur_name']);
 
 $seo_change=' ประเภทอสังหาฯ: '.$property_code.''.$seo_category.','.$property_code.$seo_a.','.$property_code.$seo_p;
 
+// Prepare description for schema markup
+ob_start();
+include 'layout/meta.php';
+$detail_schema = trim(ob_get_clean()).$seo_change;
+
 
 
 
@@ -363,6 +368,25 @@ switch($row_data_post['type_property_code']){
 <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" onload="this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css"></noscript>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.min.js" defer></script>
+
+    <script type='application/ld+json'>
+    {
+        "@context": "https://schema.org",
+        "@graph": [{
+            "@type": "WebPage",
+            "@id": "<?php echo htmlspecialchars($url_meta, ENT_QUOTES, 'UTF-8'); ?>#webpage",
+            "url": "<?php echo htmlspecialchars($url_meta, ENT_QUOTES, 'UTF-8'); ?>",
+            "inLanguage": "th",
+            "name": "<?php echo htmlspecialchars($title_schema, ENT_QUOTES, 'UTF-8'); ?>",
+            "description": "<?php echo htmlspecialchars($detail_schema, ENT_QUOTES, 'UTF-8'); ?>",
+            "publisher": {
+                "@type": "Organization",
+                "name": "DFirst Property",
+                "url": "https://www.dfirstproperty.com"
+            }
+        }]
+    }
+    </script>
 
 
 
