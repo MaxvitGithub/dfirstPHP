@@ -1,0 +1,18 @@
+# Block access to specific sections and file types
+User-agent: *
+Disallow: /*.php$
+Disallow: /user/
+Disallow: /ios/
+Disallow: /android/
+
+# Allow access to important resources for SEO
+Allow: /*.js$
+Allow: /*.css$
+
+# Prevent specific bad bots from crawling
+User-agent: BadBot
+Disallow: /
+
+# Sitemap locations for better indexation
+Sitemap: https://www.dfirstproperty.com/sitemap.xml
+Sitemap: https://www.dfirstproperty.com/real-estate-sitemap.xml

@@ -1,0 +1,255 @@
+@font-face {
+      font-family: 'FontAwesome-swap';
+      font-display: swap;
+src: local('FontAwesome'), url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/webfonts/fa-solid-900.woff2?v=5.8.2) format('woff2');
+src: local('FontAwesome'), url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/webfonts/fa-brands-400.woff2?v=5.8.2) format('woff2');
+src: local('FontAwesome'), url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/webfonts/fa-regular-400.woff2?v=5.8.2) format('woff2');
+    }
+body{
+	font-family: 'Prompt', sans-serif;
+	font-size: 16px;
+	position: relative; 
+}
+.roboto_font{
+	font-family: 'Roboto', sans-serif;
+}
+.images_bg_body{
+	background-image:url(https://www.images.dfirstproperty.com/body-bg.jpg);
+}
+
+.has-search .form-control {
+    padding-left: 2.375rem;
+	
+}
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2rem;
+    text-align: center;
+	
+    pointer-events: none;
+    color: #aaa;
+	font-size:14px;
+}
+.menu-bg-head{
+background-image: linear-gradient(120deg, #ebedee 0%, #ebedee 100%);
+}
+
+.bg-menu2{
+background-image: linear-gradient(to top, #fdfbfb 0%, #ebedee 100%);
+	
+}
+
+.div-form {
+  width: 150px;
+ 
+}
+.form-h{
+	height: 40px;
+}
+
+.show_rs{
+  left: 8px; 
+  }
+.show_l{
+  left: 3px; 
+  z-index: -1;
+}
+
+.show_b{
+  top: 170px;
+  
+  right: 17px;
+}
+.font10 {
+	font-size:10px;
+}
+.font12 {
+	font-size:12px;
+}
+.font14 {
+	font-size:14px;
+}
+.font16{
+	font-size:16px;
+}
+.font18{
+	font-size:18px;
+}
+.font20{
+	font-size:20px;
+}
+.font22{
+	font-size:22px;
+}
+.font24{
+	font-size:24px;
+}
+.font26{
+	font-size:26px;
+}
+.font28{
+	font-size:28px;
+}
+.font32{
+	font-size:32px;
+}
+.text-red{
+	color: red;
+}
+
+a.link:visited {
+  color: #000;
+}
+a.link:hover{
+	text-decoration: none;
+	background-image: linear-gradient(125deg, #fdfbfb 63%, #ebedee 0%);
+	
+}
+.pic_row{
+	width: auto;  
+	max-height: 220px;
+}
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.image-box {
+    position: relative;
+    margin: auto;
+    overflow: hidden;
+    
+	
+	
+}
+.image-box img { 
+  
+    transition: all 0.3s;
+    display: block;	
+    transform: scale(1);
+}
+
+.image-box:hover img {
+    transform: scale(1.4);
+}
+
+
+input[type=text] {
+	font-size:14px;
+	
+}
+
+input[type=email] {
+	font-size:14px;
+}
+
+@media (max-width: 980.98px) {
+.card-img-top{
+	height:150px;
+}
+.img_info{
+	 max-height: 300px;
+}
+.pic_head{
+	width: 28px;
+}
+#show_not{display:none; }
+.show_700{display:none; }
+.font_head{
+	font-size:14px;
+}
+}
+@media (min-width: 980.99px) { 
+
+.card-img-top{
+	height:120px;
+}
+
+ .img_info{
+	 	 max-height: 300px;
+	 }
+
+.pic_head{
+	width: 35px;
+}
+.show_bottom{display:none; }
+.font_head{
+	font-size:16px;
+}
+
+#myBtn {
+  display: none;
+  position: fixed;
+  bottom: 10px;
+  right: 8px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 100px;
+}
+
+#myBtn:hover {
+  background-color: #000;
+}
+
+}
+
+.sold_out{
+  position: absolute;
+  z-index: 2;
+  left: 25%;
+  top: 58%; 
+  
+}
+.available{
+  position: absolute;
+  z-index: 3;
+  bottom: 0px;
+  left: 0px;
+  font-size: 16px;
+  width: 100%;
+  opacity: .8;
+}
+
+.card-img-top{
+	width:100%;
+	height: 125px;
+}
+
+/* Bootstrap custom */
+.container-lg{
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
+  overflow: hidden;
+  
+}
+.sold_out_view{
+  position: absolute;
+  z-index: 2;
+  left: 25%;
+  top: -10px; 
+  
+}
+@media (min-width: 992px) { 
+  .sticky {
+    position: absolute;  
+    margin-top: 11px;
+    width: 100%;  
+  }
+  .stickyNew {
+    position: fixed;
+    top: 70px;
+    width: 26.8%;   
+  }
+  }

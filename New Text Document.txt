@@ -1,0 +1,4 @@
+FTP Username: dfirstproperty@dfirstproperty.com
+FTP server: ftp.z46372-bn7sj.ps02.zwhhosting.com
+FTP & explicit FTPS port:  21
+Pass: Q0IWqj]2%*RH
