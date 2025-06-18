@@ -19,6 +19,11 @@ $query_data_post = "SELECT * FROM post_property WHERE code_property='$code_prope
 $data_post = mysqli_query($con, $query_data_post) or die(mysqli_error());
 
 $row_data_post = mysqli_fetch_array($data_post, MYSQLI_ASSOC);
+if (!$row_data_post) {
+    // Redirect to the error page when no matching property is found
+    header('Location: https://www.dfirstproperty.com/error');
+    exit;
+}
 
 $totalRows_data_post = mysqli_num_rows($data_post);
 
