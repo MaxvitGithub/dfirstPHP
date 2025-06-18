@@ -1,4 +1,13 @@
-<?php include_once('db/con_site_bar.php');
+<?php
+include_once('db/con_site_bar.php');
+// Enable gzip compression if possible for faster loading
+if (!headers_sent()) {
+    if (extension_loaded('zlib')) {
+        ob_start('ob_gzhandler');
+    } else {
+        ob_start();
+    }
+}
 
 $code_property = '';
 
@@ -309,6 +318,7 @@ echo $title_schema = preg_replace('/[\"\'\(\)\*\:]/', '', trim($row_data_post['t
     <meta content="<?php include_once 'layout/meta.php'; ?><?php echo $seo_change; ?>" property="og:description">
 
     <meta content="https://www.images.dfirstproperty.com/<?php echo $num_img_2 ?>" property="og:image">
+<meta property="og:image:alt" content="<?php echo htmlspecialchars($title_schema, ENT_QUOTES, 'UTF-8'); ?>">
 
 
 
@@ -1735,6 +1745,7 @@ include_once('layout/js_footer.php');
 
 
 
+<?php ob_end_flush();?>
 </body>
 
 
