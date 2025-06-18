@@ -1,0 +1,97 @@
+# ปิดการแสดงรายการไดเรกทอรี (เพิ่มความปลอดภัย)
+Options -Indexes
+
+# เปิดใช้งาน Rewrite Engine และตั้งค่า RewriteBase
+RewriteEngine On
+RewriteBase /
+
+# เพิ่ม HTTP Headers เพื่อความปลอดภัยและประสิทธิภาพ (SEO/Performance)
+<IfModule mod_headers.c>
+    # ป้องกันการถูกคลิกแจ็ก (Clickjacking)
+    Header always set X-Frame-Options "SAMEORIGIN"
+    # ป้องกัน XSS
+    Header always set X-XSS-Protection "1; mode=block"
+    # กำหนด Referrer Policy
+    Header always set Referrer-Policy "no-referrer-when-downgrade"
+    # เปิดใช้งาน HSTS (HTTP Strict Transport Security)
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" env=HTTPS
+</IfModule>
+
+
+# บังคับให้ใช้ HTTPS และ www. (ช่วยให้ URL สม่ำเสมอและปลอดภัย)
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteCond %{HTTP_HOST} ^(?:www\.)?(.*)$ [NC]
+RewriteRule ^ https://www.%1%{REQUEST_URI} [L,R=301]
+
+# Redirect /index.php ให้ไปที่ root (/) เพื่อลด duplicate content
+RewriteCond %{THE_REQUEST} /index\.php [NC]
+RewriteRule ^ / [L,R=301]
+
+# ลบ trailing slash ของ URL ที่ไม่ใช่ directory (ลด duplicate content)
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)/$ /$1 [R=301,L]
+
+# ป้องกันไม่ให้ Search Engine index ไดเรกทอรี ios/ และ android/
+<FilesMatch "(?i)^(ios|android)/">
+    Header set X-Robots-Tag "noindex, nofollow"
+</FilesMatch>
+<FilesMatch "^\.htaccess$">
+    Require all denied
+</FilesMatch>
+
+# กำหนด Custom 404 Error Page
+ErrorDocument 404 /error
+
+# เงื่อนไขสำหรับ Rewrite: ใช้งานเฉพาะเมื่อ URL ไม่ตรงกับไฟล์หรือไดเรกทอรีจริง
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# ---------------------------------------------------
+# กฎการ Rewrite สำหรับ URL แบบ Friendly (ปรับให้เหมาะกับ SEO)
+# ---------------------------------------------------
+
+# เส้นทางสำหรับหน้าเพจหลัก (เช่น contact, error, login)
+RewriteRule ^(contact|error|login)$ $1.php [L]
+
+# เส้นทางสำหรับไฟล์ sitemap
+RewriteRule ^sitemap.xml$ sitemap-load.php [L]
+RewriteRule ^real-estate-sitemap.xml$ real-estate-sitemap.php [L]
+RewriteRule ^real-estate$ real-estate.php [L]
+
+# เส้นทางสำหรับ user pages
+RewriteRule ^user/([^./]*)$ user/index.php?index=$1 [L]
+
+# เส้นทางสำหรับหน้าแสดงอสังหาริมทรัพย์
+RewriteRule ^real-estate/([^./]*)/?$ view.php?title_code_property=$1 [L]
+
+# เส้นทางสำหรับ Property Types แบบ Multilingual (รวมภาษาไทย)
+RewriteRule ^(บ้านเดี่ยว|ทาวน์เฮ้าส์|คอนโด|ตึกแถว-อาคารพานิชย์|โกดัง-โรงงาน|ที่ดิน|อพาทเม้น|โรงแรม|พื้นที่|สำนักงาน-ออฟฟิศ|โชว์รูม)-([^./]*)/([^./]*)/?$ property.php?type_property_code=$1&type_category_code=$2&pa_code=$3 [L]
+RewriteRule ^(บ้านเดี่ยว|ทาวน์เฮ้าส์|คอนโด|ตึกแถว-อาคารพานิชย์|โกดัง-โรงงาน|ที่ดิน|อพาทเม้น|โรงแรม|พื้นที่|สำนักงาน-ออฟซิศ|โชว์รูม)-([^./]*)/?$ property.php?type_property_code=$1&type_category_code=$2 [L]
+
+# Gzip Compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain text/html text/xml text/css application/xml application/xhtml+xml application/rss+xml application/javascript application/x-javascript application/json image/svg+xml image/webp
+</IfModule>
+
+# ---------------------------------------------------
+# กฎการแคชไฟล์ (ช่วยเพิ่มความเร็วในการโหลดหน้าเว็บ)
+# ---------------------------------------------------
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/x-icon "access plus 1 month"
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/otf "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType application/font-woff "access plus 1 year"
+    ExpiresDefault "access plus 7 days"
+</IfModule>
+
+# กำหนด charset เป็น UTF-8 เพื่อรองรับภาษาไทยและภาษาอื่นๆ
+AddDefaultCharset UTF-8
