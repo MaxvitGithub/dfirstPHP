@@ -356,11 +356,12 @@ switch($row_data_post['type_property_code']){
 
 
 
-    <!-- jQuery 1.8 or later, 33 KB -->
+    <!-- jQuery for Fotorama -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" defer></script>
 
-<!-- Fotorama from CDNJS, 19 KB -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css">
+<!-- Fotorama from CDNJS -->
+<link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css"></noscript>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.min.js" defer></script>
 
 
@@ -520,8 +521,8 @@ foreach ($extensions as $extension) {
 if (empty($files)) {
 
     echo '<a href="https://www.images.dfirstproperty.com/not-available.jpg">
-        <img src="https://www.images.dfirstproperty.com/not-available.jpg" 
-            alt="No images available" width="640" height="360"/>
+        <img src="https://www.images.dfirstproperty.com/not-available.jpg"
+            alt="No images available" width="640" height="360" loading="lazy" decoding="async" />
     </a>';
 
 } else {
@@ -532,9 +533,9 @@ if (empty($files)) {
     foreach ($files as $image) {
         $image = substr($image, 7);  // Remove 'images/' prefix from path
         echo '<a href="https://www.images.dfirstproperty.com/'.$image.'">
-                 <img src="https://www.images.dfirstproperty.com/'.$image.'" 
-                      alt="'.$row_data_post['title'].' ภาพที่ '.$ii++.'"  
-                      width="640" height="360"/>
+                 <img src="https://www.images.dfirstproperty.com/'.$image.'"
+                      alt="'.$row_data_post['title'].' ภาพที่ '.$ii++.'"
+                      width="640" height="360" loading="lazy" decoding="async" />
               </a>';
     }
 }
@@ -577,17 +578,16 @@ if (empty($files)) {
 
                         <div class="p-2">
 
-                            <span class="float-left" style="font-size: 20px;"><i class="fas fa-print"></i></span>
+                            <span class="float-left" style="font-size: 20px;"><i class="fas fa-print" aria-hidden="true"></i></span>
 
 
 
 
 
                             <span class="float-right">
-
-                                <label for="myInput" onclick="myFunction()" title="Copy to Clipboard"
-                                    style="font-size: 20px;">Copy Link <i class="fas fa-clone"></i></label>
-
+                                <button type="button" onclick="myFunction()" title="Copy to Clipboard" class="btn btn-link p-0" aria-label="Copy Link" style="font-size: 20px;">
+                                    Copy Link <i class="fas fa-clone" aria-hidden="true"></i>
+                                </button>
                             </span>
 
                             <input type="text" class="form-control"
@@ -814,7 +814,7 @@ echo '<div class="card-header font22">
 
                                     </font>
 
-                                    <i class="far fa-eye-slash"></i>
+                                    <i class="far fa-eye-slash" aria-hidden="true"></i>
 
                                     <?php echo $row_data_post['page_view']; ?> ผู้เข้าชม
 
@@ -826,7 +826,7 @@ echo '<div class="card-header font22">
 
                                     <span>
 
-                                        <i class="fas fa-map-marker-alt"></i>
+                                        <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
 
                                         <?php echo preg_replace('/[\'",.*()]/', '', $row_data_post['amphur_name']); ?>,
 
@@ -838,7 +838,7 @@ echo '<div class="card-header font22">
 
                                     <span>
 
-                                        <i class="fas fa-align-justify"></i>
+                                        <i class="fas fa-align-justify" aria-hidden="true"></i>
 
                                         <?php echo $property_code; ?><?php echo $row_data_post['type_category']; ?>
 
@@ -848,7 +848,7 @@ echo '<div class="card-header font22">
 
 
 
-                                    <i class="far fa-square text_p_info">
+                                    <i class="far fa-square text_p_info" aria-hidden="true">
 
                                         <span
                                             class="font18"><?php if(!empty($row_data_post['rai'])){echo number_format($row_data_post['rai']).' ไร่ |';} ?></span>
@@ -875,17 +875,17 @@ echo '<div class="card-header font22">
 
                                         <span class="font18"><?php if(!empty($row_data_post['beds'])){
 
-		echo '<i class="fas fa-bed"></i> '.$row_data_post['beds'].' ห้องนอน';	}?></span>
+		echo '<i class="fas fa-bed" aria-hidden="true"></i> '.$row_data_post['beds'].' ห้องนอน';	}?></span>
 
                                         <span class="font18"><?php if(!empty($row_data_post['baths'])){
 
-		echo '<i class="fas fa-shower"></i> '.$row_data_post['baths'].' ห้องน้ำ';
+		echo '<i class="fas fa-shower" aria-hidden="true"></i> '.$row_data_post['baths'].' ห้องน้ำ';
 
 		} ?></span>
 
                                         <span class="font18"><?php if(!empty($row_data_post['parking'])){
 
-		echo '<i class="fas fa-car"></i> '.$row_data_post['parking'].' ที่จอดรถ';
+		echo '<i class="fas fa-car" aria-hidden="true"></i> '.$row_data_post['parking'].' ที่จอดรถ';
 
 		} ?></span>
 
@@ -994,7 +994,7 @@ switch($row_data_post['type_property_code']){
 
                                                 <div class="btn btn-block btn-info">
 
-                                                    <i class="fas fa-phone-volume"></i>
+                                                    <i class="fas fa-phone-volume" aria-hidden="true"></i>
 
                                                     081-582-3485
 
@@ -1361,9 +1361,9 @@ if(!empty($files)){
 
 
 
-echo '<img itemprop="image" src="https://www.images.dfirstproperty.com/'.$num_img.'" width="100%" alt="'.$row_data_post_B['title'].'" class="img_info">';}else{
+echo '<img itemprop="image" src="https://www.images.dfirstproperty.com/'.$num_img.'" width="100%" alt="'.$row_data_post_B['title'].'" class="img_info" loading="lazy" decoding="async">';}else{
 
-echo '<img src="images/not-available.jpg" alt="Not-images">';
+echo '<img src="images/not-available.jpg" alt="Not-images" loading="lazy" decoding="async">';
 
 }
 
@@ -1398,7 +1398,7 @@ $title_url = preg_replace("/[\ \-]+/", "-", $title_url);
 
 
 echo 'https://www.dfirstproperty.com/real-estate/'.$title_url;?>" itemprop="url" class=" text-dark stretched-link"
-                                            title="<?php echo $row_data_post_B['title']; ?>" target="_blank">
+                                            title="<?php echo $row_data_post_B['title']; ?>" target="_blank" rel="noopener noreferrer">
 
                                             <?php echo $row_data_post_B['title']; ?></a></span>
 
@@ -1438,11 +1438,11 @@ echo 'https://www.dfirstproperty.com/real-estate/'.$title_url;?>" itemprop="url"
 
 
 
-                                    echo '<i class="fas fa-bed text-success"></i> '.$row_data_post_B['beds'].' ห้องนอน ';
+                                    echo '<i class="fas fa-bed text-success" aria-hidden="true"></i> '.$row_data_post_B['beds'].' ห้องนอน ';
 
-                                    echo '<i class="fas fa-shower text-success"></i> '.$row_data_post_B['baths'].' ห้องน้ำ ';
+                                    echo '<i class="fas fa-shower text-success" aria-hidden="true"></i> '.$row_data_post_B['baths'].' ห้องน้ำ ';
 
-                                    echo '<i class="fas fa-car text-success"></i> '.$row_data_post_B['parking'].' ที่จอดรถ ';      
+                                    echo '<i class="fas fa-car text-success" aria-hidden="true"></i> '.$row_data_post_B['parking'].' ที่จอดรถ ';      
 
                                     echo '<br>';                                                
 
@@ -1474,7 +1474,7 @@ if ($sqm > 0  || $rai > 0 || $sqw > 0 ){
 
 
 
-    echo '<i class="far fa-square text_p_info text-success"></i> ';
+    echo '<i class="far fa-square text_p_info text-success" aria-hidden="true"></i> ';
 
 
 
@@ -1647,9 +1647,9 @@ $price = preg_replace('/[\'",.*()]/', '', $row_data_post_B['price']);
 
             <br>
 
-            <div onclick="topFunction()" id="myBtn" class="bg-success"><i class="fas fa-angle-up show_700"></i>
-
-            </div>
+            <button type="button" onclick="topFunction()" id="myBtn" class="bg-success" aria-label="Scroll to top">
+                <i class="fas fa-angle-up show_700" aria-hidden="true"></i>
+            </button>
 
 
 
