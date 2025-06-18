@@ -326,6 +326,24 @@ echo $title_schema = preg_replace('/[\"\'\(\)\*\:]/', '', trim($row_data_post['t
 
     <?php include_once ('seo/GoogleTagHead.php'); ?>
 
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "<?php echo $title_schema; ?>",
+        "image": "https://www.images.dfirstproperty.com/<?php echo $num_img_2 ?>",
+        "description": "<?php include_once 'layout/meta.php'; ?><?php echo $seo_change; ?>",
+        "sku": "<?php echo $row_data_post['code_property']; ?>",
+        "offers": {
+            "@type": "Offer",
+            "url": "<?php echo $url_meta; ?>",
+            "priceCurrency": "THB",
+            "price": "<?php echo preg_replace('/[\\'\",.*()]/', '', $row_data_post['price_sale']); ?>",
+            "availability": "https://schema.org/InStock"
+        }
+    }
+    </script>
+
 
 
     <?php
@@ -386,7 +404,7 @@ switch($row_data_post['type_property_code']){
 
         <br>
 
-        <nav aria-label="breadcrumb">
+        <nav aria-label="breadcrumb" role="navigation">
 
             <ol itemscope itemtype="http://schema.org/BreadcrumbList"
                 class="breadcrumb container-lg bg-transparent font14">
@@ -522,7 +540,7 @@ if (empty($files)) {
 
     echo '<a href="https://www.images.dfirstproperty.com/not-available.jpg">
         <img src="https://www.images.dfirstproperty.com/not-available.jpg"
-            alt="No images available" width="640" height="360" loading="lazy" decoding="async" />
+            alt="No images available" width="640" height="360" loading="lazy" decoding="async" fetchpriority="high" />
     </a>';
 
 } else {
@@ -532,11 +550,13 @@ if (empty($files)) {
     // Loop through and display each image
     foreach ($files as $image) {
         $image = substr($image, 7);  // Remove 'images/' prefix from path
+        $fetch = ($ii === 1) ? ' fetchpriority="high"' : '';
         echo '<a href="https://www.images.dfirstproperty.com/'.$image.'">
-                 <img src="https://www.images.dfirstproperty.com/'.$image.'"
-                      alt="'.$row_data_post['title'].' ภาพที่ '.$ii++.'"
-                      width="640" height="360" loading="lazy" decoding="async" />
-              </a>';
+                 <img src="https://www.images.dfirstproperty.com/'.$image.'"'
+                      .' alt="'.$row_data_post['title'].' ภาพที่ '.$ii.'"'
+                      .' width="640" height="360" loading="lazy" decoding="async"'.$fetch.' />'
+              .'</a>';
+        $ii++;
     }
 }
 ?>
@@ -590,7 +610,7 @@ if (empty($files)) {
                                 </button>
                             </span>
 
-                            <input type="text" class="form-control"
+                            <input type="text" class="form-control" aria-label="Property URL"
                                 value="https://www.dfirstproperty.com/real-estate/<?php echo $row_data_post['code_property']; ?>"
                                 id="myInput" required>
 

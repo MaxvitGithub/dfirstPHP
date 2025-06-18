@@ -12,6 +12,8 @@
 <!-- ✅ jQuery & Bootstrap CDN -->
 <link rel="preconnect" href="https://code.jquery.com" crossorigin>
 <link rel="preconnect" href="https://stackpath.bootstrapcdn.com" crossorigin>
+<!-- ✅ CDNJS for third-party libraries -->
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
 <!-- ✅ Font Awesome -->
 <link rel="preconnect" href="https://use.fontawesome.com" crossorigin>
