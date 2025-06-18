@@ -1,13 +1,4 @@
-<?php
-include_once('db/con_site_bar.php');
-// Enable gzip compression if possible for faster loading
-if (!headers_sent()) {
-    if (extension_loaded('zlib')) {
-        ob_start('ob_gzhandler');
-    } else {
-        ob_start();
-    }
-}
+<?php include_once('db/con_site_bar.php');
 
 $code_property = '';
 
@@ -28,11 +19,6 @@ $query_data_post = "SELECT * FROM post_property WHERE code_property='$code_prope
 $data_post = mysqli_query($con, $query_data_post) or die(mysqli_error());
 
 $row_data_post = mysqli_fetch_array($data_post, MYSQLI_ASSOC);
-if (!$row_data_post) {
-    // Redirect to the error page when no matching property is found
-    header('Location: https://www.dfirstproperty.com/error');
-    exit;
-}
 
 $totalRows_data_post = mysqli_num_rows($data_post);
 
@@ -318,7 +304,6 @@ echo $title_schema = preg_replace('/[\"\'\(\)\*\:]/', '', trim($row_data_post['t
     <meta content="<?php include_once 'layout/meta.php'; ?><?php echo $seo_change; ?>" property="og:description">
 
     <meta content="https://www.images.dfirstproperty.com/<?php echo $num_img_2 ?>" property="og:image">
-<meta property="og:image:alt" content="<?php echo htmlspecialchars($title_schema, ENT_QUOTES, 'UTF-8'); ?>">
 
 
 
@@ -340,24 +325,6 @@ echo $title_schema = preg_replace('/[\"\'\(\)\*\:]/', '', trim($row_data_post['t
     <link rel="preload" as="image" href="https://www.images.dfirstproperty.com/<?php echo $num_img_2 ?>">
 
     <?php include_once ('seo/GoogleTagHead.php'); ?>
-
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Product",
-        "name": "<?php echo $title_schema; ?>",
-        "image": "https://www.images.dfirstproperty.com/<?php echo $num_img_2 ?>",
-        "description": "<?php include_once 'layout/meta.php'; ?><?php echo $seo_change; ?>",
-        "sku": "<?php echo $row_data_post['code_property']; ?>",
-        "offers": {
-            "@type": "Offer",
-            "url": "<?php echo $url_meta; ?>",
-            "priceCurrency": "THB",
-            "price": "<?php echo preg_replace('/[\\'\",.*()]/', '', $row_data_post['price_sale']); ?>",
-            "availability": "https://schema.org/InStock"
-        }
-    }
-    </script>
 
 
 
@@ -419,7 +386,7 @@ switch($row_data_post['type_property_code']){
 
         <br>
 
-        <nav aria-label="breadcrumb" role="navigation">
+        <nav aria-label="breadcrumb">
 
             <ol itemscope itemtype="http://schema.org/BreadcrumbList"
                 class="breadcrumb container-lg bg-transparent font14">
@@ -555,7 +522,7 @@ if (empty($files)) {
 
     echo '<a href="https://www.images.dfirstproperty.com/not-available.jpg">
         <img src="https://www.images.dfirstproperty.com/not-available.jpg"
-            alt="No images available" width="640" height="360" loading="lazy" decoding="async" fetchpriority="high" />
+            alt="No images available" width="640" height="360" loading="lazy" decoding="async" />
     </a>';
 
 } else {
@@ -565,13 +532,11 @@ if (empty($files)) {
     // Loop through and display each image
     foreach ($files as $image) {
         $image = substr($image, 7);  // Remove 'images/' prefix from path
-        $fetch = ($ii === 1) ? ' fetchpriority="high"' : '';
         echo '<a href="https://www.images.dfirstproperty.com/'.$image.'">
-                 <img src="https://www.images.dfirstproperty.com/'.$image.'"'
-                      .' alt="'.$row_data_post['title'].' ภาพที่ '.$ii.'"'
-                      .' width="640" height="360" loading="lazy" decoding="async"'.$fetch.' />'
-              .'</a>';
-        $ii++;
+                 <img src="https://www.images.dfirstproperty.com/'.$image.'"
+                      alt="'.$row_data_post['title'].' ภาพที่ '.$ii++.'"
+                      width="640" height="360" loading="lazy" decoding="async" />
+              </a>';
     }
 }
 ?>
@@ -625,7 +590,7 @@ if (empty($files)) {
                                 </button>
                             </span>
 
-                            <input type="text" class="form-control" aria-label="Property URL"
+                            <input type="text" class="form-control"
                                 value="https://www.dfirstproperty.com/real-estate/<?php echo $row_data_post['code_property']; ?>"
                                 id="myInput" required>
 
@@ -1745,7 +1710,6 @@ include_once('layout/js_footer.php');
 
 
 
-<?php ob_end_flush();?>
 </body>
 
 
